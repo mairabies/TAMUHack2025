@@ -1,9 +1,19 @@
+"use client"
+
 import { SearchBar } from "@/components/search-bar"
 import { FlightInfo } from "@/components/flight-info"
 import { RebookingOptions } from "@/components/rebooking-options"
 import { SortDropdown } from "@/components/sort-dropdown"
+import { useSearchParams } from "next/navigation"
 
 export default function RebookingDashboard() {
+  const searchParams = useSearchParams()
+  const params = {
+    date: searchParams.get('date') || '',
+    origin: searchParams.get('origin') || '',
+    destination: searchParams.get('destination') || '',
+  }
+
   return (
     <div className="min-h-screen gradient-bg">
       <main className="container mx-auto px-4 py-8">
@@ -14,7 +24,7 @@ export default function RebookingDashboard() {
             <SortDropdown />
           </div>
           <FlightInfo />
-          <RebookingOptions />
+          <RebookingOptions searchParams={params} />
         </div>
       </main>
     </div>
